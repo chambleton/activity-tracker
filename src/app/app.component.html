@@ -6,9 +6,16 @@
     </button>
 </div>
 
+<div> Specify caption with weight: "Eat right:10, Sleep:20"</div>
+<textarea [(ngModel)]="activityText" style="width:450px; height:100px;"></textarea>
 
+<button type="button" class="btn btn-primary" (click)="onUpdateActivities()">
+    Update Activities
+</button>
 
+<div></div>
 cal-views: week, month, 3/6mo, year
-activities list: add/edit/remove/click 
 
 change date; tracks #items and date-done
+
+seed: https://github.com/r-park/todo-angular2-firebase
