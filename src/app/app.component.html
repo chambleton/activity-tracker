@@ -1,10 +1,11 @@
 <goal-calendar [data]="chartData"  (itemClick)="onCalendarItemClick($event)"></goal-calendar>
 
 <div>    
-    <button *ngFor="let activity of activities" type="button" (click)="onActivityClick(activity)">
+    <button *ngFor="let activity of activities" type="button" class="btn btn-primary" (click)="onActivityClick(activity)">
         {{activity.caption}}
     </button>
 </div>
+
 
 
 cal-views: week, month, 3/6mo, year
