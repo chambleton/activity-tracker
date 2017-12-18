@@ -3,19 +3,31 @@ import { NgModule } from '@angular/core';
 import { ButtonsModule } from 'ngx-bootstrap';
 import { FormsModule } from '@angular/forms';
 
+import { environment } from '../environments/environment';
+import { AngularFireModule } from 'angularfire2';
+import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
 import { GoalCalendarComponent } from './goal-calendar/goal-calendar.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { AppRoutingModule } from './app-routing.module';
+import { ActivityTrackerComponent } from './activity-tracker/activity-tracker.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    GoalCalendarComponent
+    GoalCalendarComponent,
+    UserProfileComponent,
+    ActivityTrackerComponent
   ],
   imports: [
     BrowserModule, FormsModule,
-    ButtonsModule.forRoot()
+    AppRoutingModule,
+    ButtonsModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything
+    CoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { AppComponent} from '../app.component';
+import { ActivityTrackerComponent } from '../activity-tracker/activity-tracker.component';
 import 'cal-heatmap';
 
 @Component({
@@ -10,13 +10,13 @@ import 'cal-heatmap';
 
 export class GoalCalendarComponent implements OnInit {
 
-  constructor(private appComponent: AppComponent) { }
+  constructor(private activityTrackerComponent: ActivityTrackerComponent) { }
   
   @Input() data: any;
   @Output() itemClick: EventEmitter<any> = new EventEmitter<any>();
 
   ngOnInit() {
-    this.appComponent.dataChanged.subscribe((result) => {
+    this.activityTrackerComponent.dataChanged.subscribe((result) => {
       console.log(result);
       this.calendar.update(result, false, this.calendar.RESET_SINGLE_ON_UPDATE);
     });
