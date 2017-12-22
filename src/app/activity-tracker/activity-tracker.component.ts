@@ -12,16 +12,18 @@ export class ActivityTrackerComponent implements OnInit {
 
   @Output() dataChanged: EventEmitter<any> = new EventEmitter<any>();
 
+  title = 'Activity Tracker';  
+  
   activityText: string = "Quiet Time: 20, Workout: 20, Water Serving: 5, Protein Shake: 25, Read book";
-  title = 'Activity Tracker';
   chartData: any = {"1512173522":70,"1510297200":27,"1510100522":10};
+
   selectedDate: any = new Date();
   activities: any;
 
   items: Observable<any[]>;
   
-  constructor(db: AngularFirestore) {
-    this.items = db.collection('items').valueChanges();
+  constructor(afs: AngularFirestore) {
+    this.items = afs.collection('items').valueChanges();
     console.log(this.items);
   }
 

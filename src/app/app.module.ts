@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 import { environment } from '../environments/environment';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
 import { GoalCalendarComponent } from './goal-calendar/goal-calendar.component';
@@ -24,6 +25,7 @@ import { ActivityTrackerComponent } from './activity-tracker/activity-tracker.co
     AppRoutingModule,
     ButtonsModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything
+    AngularFirestoreModule.enablePersistence(),
     CoreModule,
   ],
   providers: [],
