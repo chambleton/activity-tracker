@@ -18,6 +18,8 @@ interface User {
 @Injectable()
 export class AuthService {
   user: Observable<User>;
+
+
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
               private router: Router) {
@@ -32,8 +34,28 @@ export class AuthService {
         })
   }
 
-  googleLogin() {
+  googleLogin() {    
     const provider = new firebase.auth.GoogleAuthProvider()
+    return this.oAuthLogin(provider);
+  }
+
+  facebookLogin() {
+    const provider = new firebase.auth.FacebookAuthProvider()
+    return this.oAuthLogin(provider);
+  }
+
+  phoneLogin() {
+    const provider = new firebase.auth.PhoneAuthProvider()    
+    return this.oAuthLogin(provider);
+  }
+  
+  twitterLogin() {
+    const provider = new firebase.auth.TwitterAuthProvider()
+    return this.oAuthLogin(provider);
+  }
+
+  githubLogin() {
+    const provider = new firebase.auth.GithubAuthProvider()
     return this.oAuthLogin(provider);
   }
 
