@@ -1,0 +1,44 @@
+<div *ngIf="auth.user | async; then authenticated else guest">
+  <!-- template will replace this div -->
+</div>
+<!-- User NOT logged in -->
+<ng-template #guest>
+  <h3>Login</h3>
+  <p>Please login to get started...</p>
+  <!--
+  <button (click)="auth.facebookLogin()">+
+    <i class="fa fa-facebook"></i> Connect with Facebook
+  </button>
+  -->
+  <div>
+    <button type="button" class="btn btn-primary" (click)="auth.googleLogin()">
+      <i class="fa fa-google"></i> Connect with Google
+    </button>
+  </div>
+  <!--
+  <button (click)="auth.phoneLogin()">
+    <i class="fa fa-phone"></i> Connect with Phone
+  </button>
+  -->
+  <div>
+    <button type="button" class="btn btn-primary" (click)="auth.githubLogin()">
+      <i class="fa fa-github"></i> Connect with Github
+    </button>
+  </div>
+  <div>
+    <button type="button" class="btn btn-primary" (click)="auth.twitterLogin()">
+      <i class="fa fa-twitter"></i> Connect with Twitter
+    </button>
+  </div>
+</ng-template>
+<!-- User logged in -->
+<ng-template #authenticated>
+<div *ngIf="auth.user | async as user">
+  <h3>hello, {{ user.displayName }}</h3>
+  <img [src]="user.photoURL">
+
+  <activity-tracker></activity-tracker>
+  
+  <button type="button" class="btn btn-warning" (click)="auth.signOut()">Logout</button>
+</div>
+</ng-template>

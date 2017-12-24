@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ActivityTrackerComponent } from './activity-tracker/activity-tracker.component';
 import { AuthGuard } from './core/auth.guard';
-import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 const routes: Routes = [
     {
