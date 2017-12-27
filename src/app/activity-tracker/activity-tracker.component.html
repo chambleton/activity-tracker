@@ -1,12 +1,20 @@
 <goal-calendar [data]="chartData"  (itemClick)="onCalendarItemClick($event)"></goal-calendar>
 
+<day-display></day-display>
+
 <div>    
-    <button *ngFor="let activity of activities" type="button" class="btn btn-primary" (click)="onActivityClick(activity)">
+    <button *ngFor="let activity of this.activityListingService.getActivities()" type="button" class="btn" 
+        [ngClass]="{
+            'btn-success':activity.weight > 0,
+            'btn-warning': activity.weight >= -10 && activity.weight <= 0,
+            'btn-danger':activity.weight < -10
+        }"
+        (click)="onActivityClick(activity)">
         {{activity.caption}}
     </button>
 </div>
 
-<div> Specify caption with weight: "Eat right:10, Sleep:20"</div>
+<div> Specify caption with weight: "Eat right:10, Sleep:20, Junk food: -15"</div>
 <textarea [(ngModel)]="activityText" style="width:450px; height:100px;"></textarea>
 <div>
     <button type="button" class="btn btn-primary" (click)="onUpdateActivities()">
@@ -19,11 +27,3 @@
         {{item.name}}
     </li>
 </ul>
-
-cal-views: week, month, 3/6mo, year
-
-change date; tracks #items and date-done
-
-firebase, authentication
-
-seed: https://github.com/r-park/todo-angular2-firebase

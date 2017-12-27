@@ -2,6 +2,10 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 
+import { Activity } from '../services/activity.model';
+import { ActivityListingService } from '../services/activity-listing.service';
+import { ActivityTrackingService } from '../services/activity-tracking.service';
+
 @Component({
   selector: 'activity-tracker',
   templateUrl: './activity-tracker.component.html',
@@ -11,43 +15,39 @@ import { Observable } from 'rxjs/Observable';
 export class ActivityTrackerComponent implements OnInit {
 
   @Output() dataChanged: EventEmitter<any> = new EventEmitter<any>();
+  @Output() dateChanged: EventEmitter<any> = new EventEmitter<any>();
 
   title = 'Activity Tracker';  
-  
-  activityText: string = "Quiet Time: 20, Workout: 20, Water Serving: 5, Protein Shake: 25, Read book";
-  chartData: any = {"1512173522":70,"1510297200":27,"1510100522":10};
 
-  selectedDate: any = new Date();
-  activities: any;
-
+  activityText: string;
+ // chartData: any = {"1512173522":70,"1510297200":27,"1510100522":10};
+  chartData: any = {};
+  // TODO: get rid of items!! only talk to db thru service!
   items: Observable<any[]>;
   
-  constructor(afs: AngularFirestore) {
+  constructor(afs: AngularFirestore, 
+    public activityListingService: ActivityListingService, 
+    public activityTrackingService: ActivityTrackingService) {
+
     this.items = afs.collection('items').valueChanges();
     console.log(this.items);
   }
 
   ngOnInit() {
-    this.onUpdateActivities();
+    this.activityText = this.activityListingService.defaultActivityList;
   }
 
   onUpdateActivities() {
-    this.activities = [];
-
-    var acts = this.activityText.split(',');
-    acts.forEach((act) => {
-      var a = act.split(':');
-      var b = {};
-      b["caption"] = a[0].trim();
-      b["weight"] = a[1] ? parseInt(a[1].trim()) : 10;      
-      this.activities.push(b);
-    });
+    this.activityListingService.updateActivities(this.activityText);
   }
 
   onActivityClick(activity: any) {
-    var entryDate = this.selectedDate;
-    //var now = new Date();
-    var entry = Math.floor(entryDate.getTime()/1000);
+
+    var newActivity = new Activity(activity.caption, activity.weight);
+    newActivity.date = this.activityTrackingService.selectedDate;
+    this.activityTrackingService.addActivity(newActivity);
+    
+    var entry = newActivity.dateToNumber();
     if (this.chartData[entry]) {
       this.chartData[entry] += activity.weight;
     }
@@ -58,6 +58,7 @@ export class ActivityTrackerComponent implements OnInit {
   }
 
   onCalendarItemClick($event) {
-    this.selectedDate = $event;
+    this.activityTrackingService.selectedDate = $event;
+    this.dateChanged.emit($event);
   }
 }

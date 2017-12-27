@@ -12,6 +12,7 @@ export class UserSigninComponent implements OnInit {
   constructor(public auth: AuthService) { }
 
   ngOnInit() {
+    console.log(this.auth);
   }
 
 }

@@ -13,6 +13,9 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
 import { UserSigninComponent } from './user/user-signin/user-signin.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ActivityTrackerComponent } from './activity-tracker/activity-tracker.component';
+import { ActivityTrackingService } from './services/activity-tracking.service';
+import { ActivityListingService } from './services/activity-listing.service';
+import { DayDisplayComponent } from './day-display/day-display.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,8 @@ import { ActivityTrackerComponent } from './activity-tracker/activity-tracker.co
     GoalCalendarComponent,
     UserProfileComponent,
     UserSigninComponent,
-    ActivityTrackerComponent
+    ActivityTrackerComponent,
+    DayDisplayComponent
   ],
   imports: [
     BrowserModule, FormsModule,
@@ -29,7 +33,7 @@ import { ActivityTrackerComponent } from './activity-tracker/activity-tracker.co
     AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything    
     CoreModule,
   ],
-  providers: [],
+  providers: [ActivityTrackingService, ActivityListingService],
   bootstrap: [AppComponent]
 })
 

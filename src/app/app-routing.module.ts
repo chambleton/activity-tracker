@@ -13,6 +13,10 @@ const routes: Routes = [
         path: 'login',
         component: UserProfileComponent
     },
+    {
+        path: 'userprofile',
+        component: UserProfileComponent
+    },
 ];
 
 @NgModule({

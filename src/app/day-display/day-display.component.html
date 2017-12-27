@@ -1,0 +1,8 @@
+<div>  
+  <div>
+    Date: {{activityTrackingService.selectedDate}}
+  </div>
+  <div *ngFor="let activity of activityTrackingService.getActivitiesBySelectedDate()">
+        {{activity.caption}}
+  </div>
+</div>

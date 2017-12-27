@@ -1,3 +1,4 @@
+
 <div *ngIf="auth.user | async; then authenticated else guest">
   <!-- template will replace this div -->
 </div>
@@ -36,9 +37,9 @@
 <div *ngIf="auth.user | async as user">
   <h3>hello, {{ user.displayName }}</h3>
   <img [src]="user.photoURL">
-
-  <activity-tracker></activity-tracker>
-  
+  <div>
+    {{user}}
+  </div>
   <button type="button" class="btn btn-warning" (click)="auth.signOut()">Logout</button>
 </div>
 </ng-template>

@@ -48,6 +48,11 @@ export class GoalCalendarComponent implements OnInit {
 
   };
   calendar = new CalHeatMap();
+
+  ngOnDestroy() {
+    this.activityTrackerComponent.dataChanged.unsubscribe();
+  }
+
 }
 /*
 https://stackoverflow.com/questions/21119559/how-do-i-create-a-continuous-github-like-calendar-with-cal-heatmap
