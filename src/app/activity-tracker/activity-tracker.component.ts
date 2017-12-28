@@ -66,14 +66,15 @@ export class ActivityTrackerComponent implements OnInit {
   onActivityDeleted($event: Activity) {
     var newDate = new Date($event.date.getFullYear(), $event.date.getMonth(), $event.date.getDate());
     var entry = $event.dateToNumber();
-
-    if (this.chartData[entry]) {
-      this.chartData[entry] -= $event.weight;
+    
+    if (this.chartData[entry] !== null) {      
+        this.chartData[entry] -= $event.weight;
       
       if (this.activityTrackingService.getActivitiesByDate($event.date).length <= 0) {
         this.chartData[entry] = null;
       }      
     }
+    
     this.dataChanged.emit(this.chartData);   
   }
 }
