@@ -16,8 +16,7 @@ export class GoalCalendarComponent implements OnInit {
   @Output() itemClick: EventEmitter<any> = new EventEmitter<any>();
 
   ngOnInit() {
-    this.activityTrackerComponent.dataChanged.subscribe((result) => {
-      //console.log(result);
+    this.activityTrackerComponent.dataChanged.subscribe((result) => {      
       this.calendar.update(result, false, this.calendar.RESET_SINGLE_ON_UPDATE);
     });
 

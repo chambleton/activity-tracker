@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ButtonsModule, BsDropdownModule } from 'ngx-bootstrap';
+import { ButtonsModule, BsDropdownModule, CollapseModule } from 'ngx-bootstrap';
 import { FormsModule } from '@angular/forms';
 
 import { environment } from '../environments/environment';
@@ -16,6 +16,8 @@ import { ActivityTrackerComponent } from './activity-tracker/activity-tracker.co
 import { ActivityTrackingService } from './services/activity-tracking.service';
 import { ActivityListingService } from './services/activity-listing.service';
 import { DayDisplayComponent } from './day-display/day-display.component';
+import { ActivitiesEditComponent } from './activities-edit/activities-edit.component';
+import { ActivitiesActionsComponent } from './activities-actions/activities-actions.component';
 
 @NgModule({
   declarations: [
@@ -24,12 +26,16 @@ import { DayDisplayComponent } from './day-display/day-display.component';
     UserProfileComponent,
     UserSigninComponent,
     ActivityTrackerComponent,
-    DayDisplayComponent
+    DayDisplayComponent,
+    ActivitiesEditComponent,
+    ActivitiesActionsComponent
   ],
   imports: [
     BrowserModule, FormsModule,
     AppRoutingModule,
-    ButtonsModule.forRoot(), BsDropdownModule.forRoot(),
+    ButtonsModule.forRoot(), 
+    BsDropdownModule.forRoot(),
+    CollapseModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything    
     CoreModule,
   ],
