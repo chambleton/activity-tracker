@@ -10,11 +10,21 @@ import { Activity } from '../services/activity.model';
 })
 export class ActivitiesActionsComponent implements OnInit {
 
+  showWeights: boolean = false;
+
   constructor(public activityListingService: ActivityListingService, 
               public activityTrackingService: ActivityTrackingService) { }
 
   ngOnInit() {
   }
+
+  onActivityClick(activity: Activity) {
+
+    var newActivity = new Activity(activity.caption, activity.weight);    
+    newActivity.setDateOnly(this.activityTrackingService.selectedDate);
+    this.activityTrackingService.addActivity(newActivity);   
+  }
+
 /*
   onActivityClick(activity: Activity) {
 
@@ -31,11 +41,6 @@ export class ActivitiesActionsComponent implements OnInit {
     }
 
     this.dataChanged.emit(this.chartData);    
-  }
-
-  onCalendarItemClick($event: Date) {
-    this.activityTrackingService.selectedDate = $event;
-    this.dateChanged.emit($event);
   }
 
   onActivityDeleted($event: Activity) {

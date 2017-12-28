@@ -2,7 +2,17 @@
 
 <goal-calendar [data]="chartData"  (itemClick)="onCalendarItemClick($event)"></goal-calendar>
 
-<activities-actions></activities-actions>
+<div class="row">    
+    <div class="col">
+        <activities-actions></activities-actions>
+    </div>
+    <div class="col">
+        <day-display (activityDeleted)="onActivityDeleted($event)"></day-display>
+    </div>
+</div>
+    
+
+
 
 <ul>
     <li class="text" *ngFor="let item of items | async">

@@ -15,11 +15,9 @@ export class DayDisplayComponent implements OnInit {
   @Output() activityDeleted: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(public activityTrackingService: ActivityTrackingService) { 
-
   }
 
-  ngOnInit() {
-    
+  ngOnInit() {    
   }
 
   deleteActivity(activity: Activity) {

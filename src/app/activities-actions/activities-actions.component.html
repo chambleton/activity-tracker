@@ -1,16 +1,16 @@
-<div class="row">    
-    <div class="col">
-        <button *ngFor="let activity of activityListingService.getActivities()" type="button" class="btn" 
-            [ngClass]="{
-                'btn-success':activity.weight > 0,
-                'btn-warning': activity.weight >= -10 && activity.weight <= 0,
-                'btn-danger':activity.weight < -10
-            }"
-            (click)="onActivityClick(activity)">
-            {{activity.caption}}
-        </button>
-    </div>
-    <div class="col">
-        <day-display (activityDeleted)="onActivityDeleted($event)"></day-display>
-    </div>
+<button *ngFor="let activity of activityListingService.getActivities()" type="button" class="btn"
+    [ngClass]="{
+        'btn-success':activity.weight > 0,
+        'btn-warning': activity.weight >= -10 && activity.weight <= 0,
+        'btn-danger':activity.weight < -10
+    }"
+    (click)="onActivityClick(activity)">
+    <span>{{activity.caption}}</span><span *ngIf="showWeights"> ({{activity.weight}})</span>
+</button>
+
+<div class="form-check">
+    <label class="form-check-label">
+        <input type="checkbox" [(ngModel)]="showWeights" class="form-check-input">
+        Show weights
+    </label>
 </div>

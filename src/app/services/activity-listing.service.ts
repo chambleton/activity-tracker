@@ -30,7 +30,7 @@ export class ActivityListingService {
         if (weight > 20) {
           weight = 20;
         }
-        if (weight < 20) {
+        if (weight < -20) {
           weight = -20;
         }
         if (weight === 0) {
