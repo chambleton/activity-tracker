@@ -17,16 +17,12 @@ export class GoalCalendarComponent implements OnInit {
 
   ngOnInit() {
     this.activityTrackerComponent.dataChanged.subscribe((result) => {
-      console.log(result);
+      //console.log(result);
       this.calendar.update(result, false, this.calendar.RESET_SINGLE_ON_UPDATE);
     });
 
-    var now = new Date();
-    //console.log(now.getTime()/1000);
+    var now = new Date();    
     var past = new Date(now.getFullYear()-1, now.getMonth(), now.getDate());
-    //console.log(past);
-    //var datetest = new Date(2017, 10,10); //11/10/2017
-    //console.log(datetest.getTime()/1000);
 
     this.calendar.init({
       start: past,
@@ -55,5 +51,6 @@ export class GoalCalendarComponent implements OnInit {
 
 }
 /*
+docs: http://cal-heatmap.com/#start
 https://stackoverflow.com/questions/21119559/how-do-i-create-a-continuous-github-like-calendar-with-cal-heatmap
  */

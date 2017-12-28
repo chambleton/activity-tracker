@@ -2,7 +2,11 @@
   <div>
     Date: {{activityTrackingService.selectedDate}}
   </div>
-  <div *ngFor="let activity of activityTrackingService.getActivitiesBySelectedDate()">
-        {{activity.caption}}
+  <div class="display-list" *ngFor="let activity of activityTrackingService.getActivitiesBySelectedDate()">
+        <span [ngClass]="{'neg-item': activity.weight <= 0}"
+        >{{activity.caption}} {{activity.timeToString()}}</span>
+        <button type="button" class="close" aria-label="Close" (click)="deleteActivity(activity)">
+          <span aria-hidden="true">&times;</span>
+        </button>
   </div>
 </div>

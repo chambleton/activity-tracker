@@ -1,6 +1,6 @@
 <goal-calendar [data]="chartData"  (itemClick)="onCalendarItemClick($event)"></goal-calendar>
 
-<day-display></day-display>
+<day-display (activityDeleted)="onActivityDeleted($event)"></day-display>
 
 <div>    
     <button *ngFor="let activity of this.activityListingService.getActivities()" type="button" class="btn" 

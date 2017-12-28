@@ -3,8 +3,19 @@ export class Activity {
   weight: number;
   date: Date;  
 
-  dateToNumber(): number {    
-    return Math.floor(this.date.getTime()/1000);
+  dateToNumber(): number {
+    var dateonly: Date = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate());    
+    return Math.floor(dateonly.getTime()/1000);
+  }
+
+  timeToString(): string {
+    return this.date.toLocaleTimeString("en-us");   
+  }
+
+  setDateOnly(date: Date) {
+    this.date.setFullYear(date.getFullYear());
+    this.date.setMonth(date.getMonth());
+    this.date.setDate(date.getDate());
   }
 
   constructor(caption: string = "activity", weight: number = 10) {

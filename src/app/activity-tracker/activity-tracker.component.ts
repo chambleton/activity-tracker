@@ -41,24 +41,39 @@ export class ActivityTrackerComponent implements OnInit {
     this.activityListingService.updateActivities(this.activityText);
   }
 
-  onActivityClick(activity: any) {
+  onActivityClick(activity: Activity) {
 
-    var newActivity = new Activity(activity.caption, activity.weight);
-    newActivity.date = this.activityTrackingService.selectedDate;
+    var newActivity = new Activity(activity.caption, activity.weight);    
+    newActivity.setDateOnly(this.activityTrackingService.selectedDate);
     this.activityTrackingService.addActivity(newActivity);
     
-    var entry = newActivity.dateToNumber();
+    var entry = newActivity.dateToNumber();    
     if (this.chartData[entry]) {
       this.chartData[entry] += activity.weight;
     }
     else {
       this.chartData[entry] = activity.weight;
     }
+
     this.dataChanged.emit(this.chartData);    
   }
 
-  onCalendarItemClick($event) {
+  onCalendarItemClick($event: Date) {
     this.activityTrackingService.selectedDate = $event;
     this.dateChanged.emit($event);
+  }
+
+  onActivityDeleted($event: Activity) {
+    var newDate = new Date($event.date.getFullYear(), $event.date.getMonth(), $event.date.getDate());
+    var entry = $event.dateToNumber();
+
+    if (this.chartData[entry]) {
+      this.chartData[entry] -= $event.weight;
+      
+      if (this.activityTrackingService.getActivitiesByDate($event.date).length <= 0) {
+        this.chartData[entry] = null;
+      }      
+    }
+    this.dataChanged.emit(this.chartData);   
   }
 }

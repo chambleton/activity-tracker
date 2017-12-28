@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivityTrackingService } from '../services/activity-tracking.service';
 import { Activity } from '../services/activity.model';
+import { Action } from 'ngx-bootstrap/mini-ngrx';
 
 @Component({
   selector: 'day-display',
@@ -8,7 +9,10 @@ import { Activity } from '../services/activity.model';
   styleUrls: ['./day-display.component.css']
 })
 
+
 export class DayDisplayComponent implements OnInit {
+
+  @Output() activityDeleted: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(public activityTrackingService: ActivityTrackingService) { 
 
@@ -18,4 +22,8 @@ export class DayDisplayComponent implements OnInit {
     
   }
 
+  deleteActivity(activity: Activity) {
+    this.activityTrackingService.deleteActivity(activity);
+    this.activityDeleted.emit(activity);
+  }
 }

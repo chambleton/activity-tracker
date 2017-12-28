@@ -42,12 +42,11 @@ export class ActivityTrackingService {
             date1.getFullYear() === date2.getFullYear());
   }
 
-  private getActivitiesByDate(selectedDate: Date): Array<Activity> {
+  getActivitiesByDate(selectedDate: Date): Array<Activity> {
     var bydate: Array<Activity> = [];
     this.activities.forEach((activity) => {
-      
       if (this.datesMatch(activity.date, selectedDate)) {
-        bydate.push(activity);        
+        bydate.push(activity);
       }
     });
 
