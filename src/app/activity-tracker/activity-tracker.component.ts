@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
+import { ObservableMedia } from "@angular/flex-layout";
 
 import { ActivityTrackingService } from '../services/activity-tracking.service';
 
@@ -13,30 +14,29 @@ import { ActivityTrackingService } from '../services/activity-tracking.service';
 export class ActivityTrackerComponent implements OnInit {
 
   @Output() dataChanged: EventEmitter<any> = new EventEmitter<any>();
-  @Output() dateChanged: EventEmitter<any> = new EventEmitter<any>();
 
-  title = 'Activity Tracker';  
-
+  title: string = 'Activity Tracker';  
+  showFullYear: boolean = true;
   
  // chartData: any = {"1512173522":70,"1510297200":27,"1510100522":10};
   chartData: any = {};
   // TODO: get rid of items!! only talk to db thru service!
   items: Observable<any[]>;
   
-  constructor(afs: AngularFirestore, 
-    public activityTrackingService: ActivityTrackingService) {
+  constructor(public activityTrackingService: ActivityTrackingService,
+    private observableMedia: ObservableMedia,
+    private afs: AngularFirestore) {
 
     this.items = afs.collection('items').valueChanges();
     console.log(this.items);
   }
 
   ngOnInit() {
-    
+    this.showFullYear = !this.observableMedia.isActive('xs');
   }
 
   onCalendarItemClick($event: Date) {
-    this.activityTrackingService.selectedDate = $event;
-    //this.dateChanged.emit($event);
+    this.activityTrackingService.selectedDate = $event;    
   }
 
 }

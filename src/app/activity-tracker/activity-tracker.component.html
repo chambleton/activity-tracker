@@ -1,18 +1,16 @@
 <activities-edit></activities-edit>
 
-<goal-calendar [data]="chartData"  (itemClick)="onCalendarItemClick($event)"></goal-calendar>
+<goal-calendar [yearView]="showFullYear" [data]="chartData" (itemClick)="onCalendarItemClick($event)"></goal-calendar>
 
-<div class="row">    
-    <div class="col">
+
+<div fxLayout="row" fxLayout.xs="column" fxFlexFill>
+    <div fxFlex="55" fxFlex.xs="45">
         <activities-actions></activities-actions>
     </div>
-    <div class="col">
+    <div fxFlex="45" fxFlex.xs="55">
         <day-display (activityDeleted)="onActivityDeleted($event)"></day-display>
     </div>
 </div>
-    
-
-
 
 <ul>
     <li class="text" *ngFor="let item of items | async">

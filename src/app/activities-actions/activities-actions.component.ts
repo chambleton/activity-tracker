@@ -19,7 +19,6 @@ export class ActivitiesActionsComponent implements OnInit {
   }
 
   onActivityClick(activity: Activity) {
-
     var newActivity = new Activity(activity.caption, activity.weight);    
     newActivity.setDateOnly(this.activityTrackingService.selectedDate);
     this.activityTrackingService.addActivity(newActivity);   

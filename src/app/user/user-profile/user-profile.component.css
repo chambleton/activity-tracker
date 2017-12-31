@@ -1,3 +1,8 @@
 .btn {
     margin: 3px;
 }
+
+.profile-img {
+    height: 120px;
+    width: 120px;
+}

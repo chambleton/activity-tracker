@@ -12,6 +12,7 @@ export class GoalCalendarComponent implements OnInit {
 
   constructor(private activityTrackerComponent: ActivityTrackerComponent) { }
   
+  @Input() yearView: boolean = true;
   @Input() data: any;
   @Output() itemClick: EventEmitter<any> = new EventEmitter<any>();
 
@@ -21,14 +22,17 @@ export class GoalCalendarComponent implements OnInit {
     });
 
     var now = new Date();    
-    var past = new Date(now.getFullYear()-1, now.getMonth(), now.getDate());
+    var thisYear = new Date(now.getFullYear()-1, now.getMonth(), now.getDate());
+    var thisQuarter = new Date(now.getFullYear(), now.getMonth()-3, now.getDate());
+    var past = this.yearView ? thisYear : thisQuarter;
+    var monthRange = this.yearView ? 13 : 4;
 
     this.calendar.init({
       start: past,
       highlight: [now],
       minDate: past,
       maxDate: now,          
-      range: 13,
+      range: monthRange,
       rowLimit: 7,
       domainGutter: 5,
       domain: "month",
@@ -40,7 +44,6 @@ export class GoalCalendarComponent implements OnInit {
       },
 			data: this.data
 		});
-
   };
   calendar = new CalHeatMap();
 

@@ -18,6 +18,8 @@ import { ActivityListingService } from './services/activity-listing.service';
 import { DayDisplayComponent } from './day-display/day-display.component';
 import { ActivitiesEditComponent } from './activities-edit/activities-edit.component';
 import { ActivitiesActionsComponent } from './activities-actions/activities-actions.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import { ActivitiesActionsComponent } from './activities-actions/activities-acti
   ],
   imports: [
     BrowserModule, FormsModule,
+    FlexLayoutModule,
     AppRoutingModule,
     ButtonsModule.forRoot(), 
     BsDropdownModule.forRoot(),

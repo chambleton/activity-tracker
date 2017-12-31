@@ -1,12 +1,10 @@
-<div class="col">  
-  <div>
-    Date: {{activityTrackingService.selectedDate}}
-  </div>
-  <div class="display-list" *ngFor="let activity of activityTrackingService.getActivitiesBySelectedDate()">
-        <span [ngClass]="{'neg-item': activity.weight <= 0}"
-        >{{activity.caption}} {{activity.timeToString()}}</span>
-        <button type="button" class="close" aria-label="Close" (click)="deleteActivity(activity)">
-          <span aria-hidden="true">&times;</span>
-        </button>
-  </div>
+<div>
+  Selected Date: {{activityTrackingService.selectedDate.toLocaleDateString("en-US")}}
+</div>
+<div class="display-list" *ngFor="let activity of activityTrackingService.getActivitiesBySelectedDate()">
+      <span [ngClass]="{'neg-item': activity.weight <= 0}"
+      >{{activity.caption}} {{activity.timeToString()}}</span>
+      <button type="button" class="close" aria-label="Close" (click)="deleteActivity(activity)">
+        <span aria-hidden="true">&times;</span>
+      </button>
 </div>
