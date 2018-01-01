@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, DoCheck } from '@angular/core';
 import { ActivityTrackerComponent } from '../activity-tracker/activity-tracker.component';
+import { ObservableMedia } from "@angular/flex-layout";
 import 'cal-heatmap';
 
 @Component({
@@ -8,18 +9,28 @@ import 'cal-heatmap';
   styleUrls: ['./goal-calendar.component.css']
 })
 
-export class GoalCalendarComponent implements OnInit {
-
-  constructor(private activityTrackerComponent: ActivityTrackerComponent) { }
+export class GoalCalendarComponent implements OnInit, DoCheck {
   
-  @Input() yearView: boolean = true;
+  private yearView: boolean = true;  
   @Input() data: any;
+  private oldData: any = {};
   @Output() itemClick: EventEmitter<any> = new EventEmitter<any>();
 
+
+  constructor(private observableMedia: ObservableMedia) { }
+
+
+  ngDoCheck() {    
+    // poor man's change detection!
+    if(JSON.stringify(this.data) !== JSON.stringify(this.oldData)) {            
+      Object.assign(this.oldData, this.data);
+      this.calendar.update(this.data, false, this.calendar.RESET_SINGLE_ON_UPDATE);
+    }    
+  }
+
+
   ngOnInit() {
-    this.activityTrackerComponent.dataChanged.subscribe((result) => {      
-      this.calendar.update(result, false, this.calendar.RESET_SINGLE_ON_UPDATE);
-    });
+    this.yearView = !this.observableMedia.isActive('xs');    
 
     var now = new Date();    
     var thisYear = new Date(now.getFullYear()-1, now.getMonth(), now.getDate());
@@ -40,16 +51,12 @@ export class GoalCalendarComponent implements OnInit {
       itemSelector: "#heatmap",
       onClick: (date, nb) => {
         this.calendar.highlight([now, date]);
-        this.itemClick.emit(date);              
+        this.itemClick.emit(date);
       },
 			data: this.data
 		});
   };
   calendar = new CalHeatMap();
-
-  ngOnDestroy() {
-    this.activityTrackerComponent.dataChanged.unsubscribe();
-  }
 
 }
 /*

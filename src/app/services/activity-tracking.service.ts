@@ -2,33 +2,31 @@ import { Injectable } from '@angular/core';
 import { Activity } from './activity.model';
 import { error } from 'util';
 
-// this class manages the user's clicked activiites!
 
 @Injectable()
 export class ActivityTrackingService {
 
   selectedDate: Date;
-  activities: Array<Activity> = [];  
+  private activities: Array<Activity> = [];  
+  private activityCounts: any = {};
 
   constructor() { 
     this.selectedDate = new Date();
   }
-
-  getActivities(): Array<Activity> {
-    return this.activities;
-  }
-
+  
   addActivity(activity: Activity) {
     this.activities.push(activity);
+    this.upsertActivityCount(activity);
   }
 
   deleteActivity(activity: Activity) {
     var index = this.activities.indexOf(activity);
     if (index >= 0) {
       this.activities.splice(index, 1);
+      this.deleteActivityCount(activity);
     }
     else {
-      throw error("couldn't find activity!");
+      throw error("Couldn't find activity!");
     }
   }
 
@@ -51,6 +49,33 @@ export class ActivityTrackingService {
     });
 
     return bydate;
+  }
+
+  getDailyActivityCounts(): any {
+    return this.activityCounts;
+  }
+  
+  private upsertActivityCount(activity: Activity) {    
+    var entry = activity.dateToNumber();    
+    if (this.activityCounts[entry]) {
+      this.activityCounts[entry] += activity.weight;
+    }
+    else {
+      this.activityCounts[entry] = activity.weight;
+    }   
+  }
+
+  private deleteActivityCount(activity: Activity) {
+    var newDate = new Date(activity.date.getFullYear(), activity.date.getMonth(), activity.date.getDate());
+    var entry = activity.dateToNumber();
+    
+    if (this.activityCounts[entry] !== null) {      
+        this.activityCounts[entry] -= activity.weight;
+      
+      if (this.getActivitiesByDate(activity.date).length <= 0) {
+        this.activityCounts[entry] = null;
+      }      
+    }  
   }
 
 }

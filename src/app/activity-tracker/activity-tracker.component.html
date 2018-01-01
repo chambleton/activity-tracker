@@ -1,6 +1,6 @@
 <activities-edit></activities-edit>
 
-<goal-calendar [yearView]="showFullYear" [data]="chartData" (itemClick)="onCalendarItemClick($event)"></goal-calendar>
+<goal-calendar [data]="activityTrackingService.getDailyActivityCounts()" (itemClick)="onCalendarItemClick($event)"></goal-calendar>
 
 
 <div fxLayout="row" fxLayout.xs="column" fxFlexFill>
@@ -8,7 +8,7 @@
         <activities-actions></activities-actions>
     </div>
     <div fxFlex="45" fxFlex.xs="55">
-        <day-display (activityDeleted)="onActivityDeleted($event)"></day-display>
+        <day-display></day-display>
     </div>
 </div>
 
