@@ -50,6 +50,9 @@ export class GoalCalendarComponent implements OnInit, DoCheck {
       subDomain: "day",
       itemSelector: "#heatmap",
       onClick: (date, nb) => {
+        if (date > now) {
+          date = now;
+        }
         this.calendar.highlight([now, date]);
         this.itemClick.emit(date);
       },
