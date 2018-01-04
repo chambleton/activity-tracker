@@ -15,7 +15,8 @@ export class ActivityTrackerComponent implements OnInit {
   constructor(private activityTrackingService: ActivityTrackingService) {
   }
 
-  ngOnInit() {    
+  ngOnInit() {
+    this.activityTrackingService.getActivities();
   }
 
   onCalendarItemClick($event: Date) {

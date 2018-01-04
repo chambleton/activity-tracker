@@ -8,10 +8,6 @@ export class Activity {
     return Math.floor(dateonly.getTime()/1000);
   }
 
-  timeToString(): string {
-    return this.date.toLocaleTimeString("en-us");   
-  }
-
   setDateOnly(date: Date) {
     this.date.setFullYear(date.getFullYear());
     this.date.setMonth(date.getMonth());
