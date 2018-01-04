@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Activity } from './activity.model';
 import { AuthService } from '../core/auth.service';
-
-import {AngularFirestore} from 'angularfire2/firestore';
-import * as firebase from 'firebase/app';
-import DocumentReference = firebase.firestore.DocumentReference;
-import {QueryFn} from 'angularfire2/firestore/interfaces';
-import {Observable} from 'rxjs/Observable';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 
 @Injectable()
@@ -43,7 +38,7 @@ export class ActivityListingService {
     return this.activities;
   }
 
-  updateActivities(activityText: string) {  
+  private parseActivityText(activityText: string) {  
     this.activities = [];
 
     var acts = activityText.split(',');
@@ -65,7 +60,10 @@ export class ActivityListingService {
         this.activities.push(new Activity(caption, weight));
       }
     });
-    
+  }
+
+  updateActivities(activityText: string) {  
+    this.parseActivityText(activityText);
     this.afs.collection('activity-list').doc(this.auth.currentUser.uid).set({'content': activityText});
     this.activityListText = activityText;
   }
