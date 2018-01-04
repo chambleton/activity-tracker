@@ -1,8 +1,8 @@
 <div class="col">
     <div> Specify activity with weight: "Eat right:10, Workout:20, Junk food: -15"</div>
-        <textarea [(ngModel)]="activityText" class="activities-text col"></textarea>
+        <textarea [(ngModel)]="activityListingService.activityListText" class="activities-text col"></textarea>
     <div>
-        <button type="button" class="btn btn-primary" (click)="activityListingService.updateActivities(activityText)">
+        <button type="button" class="btn btn-primary" (click)="activityListingService.updateActivities(activityListingService.activityListText)">
             Update Activities
         </button>
     </div>

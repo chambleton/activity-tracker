@@ -8,12 +8,9 @@ import { ActivityListingService } from '../services/activity-listing.service';
 })
 export class ActivitiesEditComponent implements OnInit {
 
-  activityText: string;
-
   constructor(public activityListingService: ActivityListingService) { }
 
-  ngOnInit() {
-    this.activityText = this.activityListingService.defaultActivityList;
+  ngOnInit() {        
   }
 
 }
