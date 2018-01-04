@@ -26,7 +26,8 @@ export class ActivityTrackingService {
       docRef.get().then((doc) => {
         if (doc.exists) {
           this.activities = JSON.parse(doc.data().content);
-          this.activities.forEach((act) => {
+          this.activities.forEach((item) => {
+            var act: Activity = new Activity(item.caption, item.weight, item.date.toString());            
             this.updateActivityCount(act);
           });     
         }           

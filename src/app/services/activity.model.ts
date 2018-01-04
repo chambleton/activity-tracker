@@ -3,7 +3,7 @@ export class Activity {
   weight: number;
   date: Date;  
 
-  dateToNumber(): number {
+  dateToNumber(): number {            
     var dateonly: Date = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate());    
     return Math.floor(dateonly.getTime()/1000);
   }
@@ -14,10 +14,16 @@ export class Activity {
     this.date.setDate(date.getDate());
   }
 
-  constructor(caption: string = "activity", weight: number = 10) {
+  constructor(caption: string = "activity", weight: number = 10, date: string = "") {
     this.caption = caption;
     this.weight = weight;
-    this.date = new Date();
+
+    if (date === "") {
+      this.date = new Date();
+    }
+    else {
+      this.date = new Date(date);
+    }
   }
 
   
