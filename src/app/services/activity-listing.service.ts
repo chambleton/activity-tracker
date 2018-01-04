@@ -8,12 +8,16 @@ import { AngularFirestore } from 'angularfire2/firestore';
 export class ActivityListingService {
 
   activities: Array<Activity>;  
-  activityListText: string;
+  private activityListText: string;
   private defaultActivityList: string = "Quiet Time: 20, Workout: 20, Water Serving: 5, Protein Shake: 15, Read books, Watch TV: -20, Sugar: -10";
 
   constructor(private auth: AuthService, 
               private afs: AngularFirestore) {
                
+  }
+
+  getActivityText(): string {
+    return this.activityListText;
   }
 
   getActivities(): Array<Activity> { 

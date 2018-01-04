@@ -6,11 +6,27 @@ import { ActivityListingService } from '../services/activity-listing.service';
   templateUrl: './activities-edit.component.html',
   styleUrls: ['./activities-edit.component.css']
 })
+
 export class ActivitiesEditComponent implements OnInit {
 
-  constructor(public activityListingService: ActivityListingService) { }
+  showEdits: boolean = false;
+  activityListText: string;
 
-  ngOnInit() {        
+  constructor(public activityListingService: ActivityListingService) { 
+    
   }
 
+  ngOnInit() {         
+  }
+
+  showEditPanel() {
+    this.activityListText = this.activityListingService.getActivityText();
+    this.showEdits = true;
+  }
+
+  updateActivities() {
+    this.activityListingService.updateActivities(this.activityListText);
+    this.showEdits = false;
+  }
+            
 }
